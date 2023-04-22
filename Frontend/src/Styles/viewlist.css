@@ -22,6 +22,11 @@ body{
 .checkbox{
       transform : scale(2);
 }
+.centre{
+    display: flex;
+    justify-content: center;
+    text-align: center;
+}
 
 @media (max-width:700px) {
     .checkbox{

@@ -1,38 +1,42 @@
 import React, { useEffect, useState } from "react";
 import '../Styles/viewlist.css';
-const Viewlist = ({changes, setchanges}) => {
+import BarLoader from 'react-spinners/BarLoader'
+const Viewlist = ({ changes, setchanges }) => {
+  const [loading, setLoading] = useState(false);
   const [dragId, setDragId] = useState();
   const [boxes, setBoxes] = useState([]);
   useEffect(() => {
     const getpost = async () => {
+      setLoading(true);
       const response = await fetch('https://todosadderbackend.onrender.com/api/getlist', {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json'
         }
       })
+      setLoading(false);
       const { getlist } = await response.json();
       setBoxes(getlist);
 
     }
     setchanges(false);
     getpost();
-// eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [changes])
 
-const handlecheckbox=async({id,value})=>{
-  await fetch('https://todosadderbackend.onrender.com/api/updatecheck', {
-    method: 'Post', 
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body:JSON.stringify({
-      id,
-      value
+  const handlecheckbox = async ({ id, value }) => {
+    await fetch('https://todosadderbackend.onrender.com/api/updatecheck', {
+      method: 'Post',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        id,
+        value
+      })
     })
-  })
-  setchanges(true);
-}
+    setchanges(true);
+  }
   const handleDrag = (ev) => {
     console.log(ev.currentTarget.id, 'ff');
     setDragId(ev.currentTarget.id);
@@ -83,6 +87,11 @@ const handlecheckbox=async({id,value})=>{
     <div>
 
       <h1 className="viewlist_title">A List of Activities</h1>
+      {loading ?
+        <div className="centre">
+          <BarLoader />
+        </div>
+        : <></>}
       {boxes
         .sort((a, b) => a.order - b.order)
         .map((box) => {
@@ -97,16 +106,16 @@ const handlecheckbox=async({id,value})=>{
                 onDrop={handleDrop}
               >
                 <span>
-                  <input type="checkbox" className="checkbox"  checked={box.check} onClick={()=>handlecheckbox({id:box._id,value:box.check})} />
+                  <input type="checkbox" className="checkbox" checked={box.check} onClick={() => handlecheckbox({ id: box._id, value: box.check })} />
 
                 </span>
-              
-                  <span>{box.order}</span>
+
+                <span>{box.order}</span>
                 <span>
                   {box.item}
-                  </span>
-          
-                
+                </span>
+
+
               </div>
 
             </>
