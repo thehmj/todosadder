@@ -122,6 +122,9 @@ const Viewlist = ({ changes, setchanges }) => {
           )
         })
       }
+      <div className="footer">
+        <a href="http://thehmj.github.io/portfolio" target="_blank" rel="noopener noreferrer">&copy;Himanshu Jain</a>
+      </div>
     </div>
   );
 }
