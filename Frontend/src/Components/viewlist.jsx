@@ -5,7 +5,7 @@ const Viewlist = ({changes, setchanges}) => {
   const [boxes, setBoxes] = useState([]);
   useEffect(() => {
     const getpost = async () => {
-      const response = await fetch('http://localhost:5000/api/getlist', {
+      const response = await fetch('https://todosadderbackend.onrender.com/api/getlist', {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json'
@@ -21,8 +21,8 @@ const Viewlist = ({changes, setchanges}) => {
   }, [changes])
 
 const handlecheckbox=async({id,value})=>{
-  await fetch('http://localhost:5000/api/updatecheck', {
-    method: 'Post',
+  await fetch('https://todosadderbackend.onrender.com/api/updatecheck', {
+    method: 'Post', 
     headers: {
       'Content-Type': 'application/json'
     },
@@ -56,7 +56,7 @@ const handlecheckbox=async({id,value})=>{
       return box;
     });
     const updateorder = async () => {
-      const response = await fetch('http://localhost:5000/api/updatelist', {
+      const response = await fetch('https://todosadderbackend.onrender.com/api/updatelist', {
         method: 'Post',
         headers: {
           'Content-Type': 'application/json'
