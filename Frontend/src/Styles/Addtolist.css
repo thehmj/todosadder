@@ -1,0 +1,23 @@
+.Add{
+    text-align: center;
+}
+#item{
+    resize:none;
+    height: 10vh;
+    width: 60vw;
+    font-size: xx-large;
+    /* border: none; */
+    outline: none;
+    box-shadow: 1px 1px 3px 3px rgba(0, 0, 0, 0.441);
+}
+.button{
+    font-size: larger;
+    font-weight: 500;
+    color: white;
+    background-color: brown;
+    padding: 1vh 1vw;
+    margin: 2vh 2vw;
+    border: none;
+    cursor: pointer;
+    border-radius: 3rem;
+}
