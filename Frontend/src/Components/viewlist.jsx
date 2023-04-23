@@ -37,15 +37,20 @@ const Viewlist = ({ changes, setchanges }) => {
     })
     setchanges(true);
   }
-  const handleDrag = (ev) => {
-    console.log(ev.currentTarget.id, 'ff');
+  const handletouch = async (ev) => {
+    ev.preventDefault();
+    if (ev.target.id===dragId) {
+      setDragId();
+    } 
+  }
+
+  const handleDrag = async (ev) => {
     setDragId(ev.currentTarget.id);
   };
 
-  const handleDrop = (ev) => {
+  const handleDrop = async (ev) => {
     const dragBox = boxes.find((box) => box._id === dragId);
     const dropBox = boxes.find((box) => box._id === ev.currentTarget.id);
-    console.log(dragBox);
 
     const dragBoxOrder = dragBox.order;
     const dropBoxOrder = dropBox.order;
@@ -99,11 +104,16 @@ const Viewlist = ({ changes, setchanges }) => {
             <>
               <div
                 id={box._id}
-                className="box"
+                className="box grabbable"
                 draggable={true}
                 onDragOver={(ev) => ev.preventDefault()}
                 onDragStart={handleDrag}
                 onDrop={handleDrop}
+                onTouchStart={handletouch}
+                onTouchMove={handleDrag}
+                onTouchEnd={handleDrop}
+                onClick={()=>setDragId()}
+                style={dragId === box._id ? { backgroundColor: 'red' } : {}}
               >
                 <span>
                   <input type="checkbox" className="checkbox" checked={box.check} onClick={() => handlecheckbox({ id: box._id, value: box.check })} />
